@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#PBS -l nodes=1:ppn=16
+#PBS -l mem=20gb
+#PBS -l walltime=12:00:00
+#PBS -M z5259036@ad.unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+
+module add blast+/2.9.0
+
+cd /srv/scratch/Z5259036/asgardspacers
+
+for file in *.fa; do tag=${file%.fa}; blastn -query "$tag".fa -db asgardMAGsdb -out "$tag"_blastn.tab -evalue 1e-5 -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qlen slen" -task blastn; done

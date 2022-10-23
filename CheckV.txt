@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+
+#PBS -l nodes=1:ppn=8
+#PBS -l mem=50gb
+
+#PBS -l walltime=50:00:00
+#PBS -M z5259036@ad.unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+
+
+cd /srv/scratch/z5259036/CheckV
+
+source activate 
+source activate checkv
+
+checkv end_to_end VS2_contigs.fa checkv -t 28 -d /srv/scratch/z5259036/checkv-db-v1.2

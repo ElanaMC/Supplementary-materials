@@ -1,0 +1,23 @@
+#!/bin/bash
+
+
+
+#PBS -l nodes=1:ppn=8
+#PBS -l mem=50gb
+
+#PBS -l walltime=50:00:00
+#PBS -M z5259036@ad.unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+
+
+cd /srv/scratch/z5259036/VirSorter
+
+module load perl/5.28.0
+module load hmmer/3.2.1
+module load blast+
+
+source activate 
+source activate virsorter
+
+for file in *.fa; do tag=${file%.fa}; wrapper_phage_contigs_sorter_iPlant.pl --diamond -f "$tag".fa --no_c --db 1 --wdir /srv/scratch/z5259036/VirSorter/"$tag"_Out --ncpu 16 --data-dir /srv/scratch/z5259036/VirSorter/asgardmags; done
